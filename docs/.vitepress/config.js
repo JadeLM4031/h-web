@@ -1,6 +1,15 @@
 import { defineConfig } from "vitepress";
 import { mdPlugin } from "./config/plugins";
 export default defineConfig({
+  head: [
+    [
+      "link",
+      {
+        rel: "icon",
+        href: "/favicon.png",
+      },
+    ],
+  ],
   themeConfig: {
     logo: "/favicon.png",
     siteTitle: "H-web",
@@ -54,7 +63,7 @@ export default defineConfig({
     },
     algolia: {
       apiKey: "5668312912db676c6c8630be7af16d3b",
-      indexName: "111111",
+      indexName: "h-web-search",
       // 如果 Algolia 没有为你提供 `appId` ，使用 `BH4D9OD16A` 或者移除该配置项
       appId: "LOVXDQ8JXB",
       locales: {
