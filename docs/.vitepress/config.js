@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
 import { mdPlugin } from "./config/plugins";
 export default defineConfig({
+  base: "/h-web",
   head: [
     [
       "link",

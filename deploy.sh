@@ -18,9 +18,9 @@ cd docs/.vitepress/dist
 # git init
 # git add .
 # git commit -m 'first'
-# git branch -M main
-# git remote add origin git@github.com:JadeLM4031/JadeLM4031.github.io.git
-# git push -u origin main
+# git branch -M gh-pages
+# git remote add origin git@github.com:JadeLM4031/h-web.git
+# git push -f -u origin gh-pages
 
 #  git push --set-upstream git@github.com:JadeLM4031/JadeLM4031.github.io.git main
 
@@ -29,7 +29,8 @@ cd docs/.vitepress/dist
 git init
 git add .
 git commit -m 'deploy'
-git branch -M main
-git push git@github.com:JadeLM4031/JadeLM4031.github.io.git main
+git branch -M gh-pages
+git push -f git@github.com:JadeLM4031/h-web.git gh-pages
+# git push git@github.com:JadeLM4031/JadeLM4031.github.io.git main
 # git push -f git@github.com:JadeLM4031/JadeLM4031.github.io.git main
 
