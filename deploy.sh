@@ -14,7 +14,7 @@ yarn docs:build
 # cd ../vueDist/
 cd docs/.vitepress/dist
 
-# git初始化，每次初始化不影响推送
+# 第一次提交（不存在dist文件）
 # git init
 # git add .
 # git commit -m 'first'
@@ -25,12 +25,10 @@ cd docs/.vitepress/dist
 #  git push --set-upstream git@github.com:JadeLM4031/JadeLM4031.github.io.git main
 
 
-# 非第一次提交
-git init
+# 非第一次提交（存在dist文件）
 git add .
 git commit -m 'deploy'
 git branch -M gh-pages
 git push -f git@github.com:JadeLM4031/h-web.git gh-pages
-# git push git@github.com:JadeLM4031/JadeLM4031.github.io.git main
-# git push -f git@github.com:JadeLM4031/JadeLM4031.github.io.git main
+
 
