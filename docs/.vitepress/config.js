@@ -48,7 +48,15 @@ export default defineConfig({
       "/component/": [
         {
           text: "前端基础",
-          items: [{ text: "JavaScript", link: "/component/javascript" }],
+          items: [
+            { text: "HTML", link: "/component/html" },
+            { text: "CSS", link: "/component/css" },
+            { text: "JavaScript", link: "/component/javascript" },
+          ],
+        },
+        {
+          text: "开发框架",
+          items: [{ text: "Vue", link: "/component/vue" }],
         },
         {
           text: "开发工具",
