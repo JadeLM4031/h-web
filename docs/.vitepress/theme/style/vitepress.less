@@ -6,20 +6,15 @@
 }
 
 :root {
-  --vp-font-family-base: -apple-system, BlinkMacSystemFont, PingFang SC,
-    Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica,
-    Arial, sans-serif;
-  --vp-font-family-mono: "JetBrains Mono", "JetBrains Mono custom",
-    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, PingFang SC, Hiragino Sans GB, noto sans, Microsoft YaHei,
+    Helvetica Neue, Helvetica, Arial, sans-serif;
+  --vp-font-family-mono: "JetBrains Mono", "JetBrains Mono custom", source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
   --vp-c-green: #5d80f4;
   --vp-c-brand-dark: #5d80f4;
   --vp-c-bg-alt: #fff; // 侧边栏
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(
-    315deg,
-    #42d392 25%,
-    #647eff
-  );
+  --vp-home-hero-name-background: -webkit-linear-gradient(315deg, #42d392 25%, #647eff);
   --vp-c-green-lighter: #426bf5;
   --vp-c-green-light: #426bf5;
   --vp-button-brand-active-bg: #426bf5;
@@ -70,8 +65,10 @@
   // search
   --search-bg-color: rgba(255, 255, 255, 0.8);
   --seach-bg-pla-color: #f6f6f7;
-  --docsearch-modal-shadow: inset 1px 1px 0 0 hsla(0, 0%, 100%, 0.2),
-    0 3px 16px 0 #d4d4d4;
+  --docsearch-modal-shadow: inset 1px 1px 0 0 hsla(0, 0%, 100%, 0.2), 0 3px 16px 0 #d4d4d4;
+  // 自定义
+  --table-th-color: #e7edfd;
+  --table-th-border-color: #e0e0e0;
 }
 
 #nprogress {
@@ -270,12 +267,17 @@ details > summary:first-of-type {
     //   white-space: nowrap;
     // }
 
+    thead {
+      background-color: var(--table-th-color);
+    }
+
     td,
     th {
       text-align: center;
       font-size: 14px;
       text-align: left;
-      border: none;
+      // border: none;
+      border: 1px solid var(--table-th-border-color);
     }
   }
 

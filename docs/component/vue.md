@@ -1,28 +1,24 @@
 ## Vue2 生命周期
 
 - **beforeCreate()**（创建前）
-  > 在实例初始化之后，数据观察 (data observer) 和 event/watcher 事件配置之前被调
-  > 用。
+  > 在实例初始化之后，数据观察 (data observer) 和 event/watcher 事件配置之前被调用。
 - **created()**（创建后）
-  > 在实例创建完成后被立即调用。在这一步，实例已完成以下 的配置：数据观察 (data
-  > observer)，属性和方法的运算，watch/event 事件回调。这时 ，挂载阶段还没开始
-  > ，$el 属性目前尚不可用。
+  > 在实例创建完成后被立即调用。在这一步，实例已完成以下 的配置：数据观察 (data observer)，属性和方法的运算，watch/event
+  > 事件回调。这时 ，挂载阶段还没开始，$el 属性目前尚不可用。
 - **beforeMount()**（载入前）
-  > 在挂载开始之前被调用，相关的 render 函数首次被调 用，该钩子函数在服务器渲染
-  > 期间不被调用。
+  > 在挂载开始之前被调用，相关的 render 函数首次被调 用，该钩子函数在服务器渲染期间不被调用。
 - **mounted()**（载入后）
-  > 实例被挂载后调用，这时 $el 被新创建的 vm.$el 替换了。 如果根实例挂载到了一个
-  > 文档内的元素上，当 mounted() 被调用时 vm.$el 也在文档内 。
+  > 实例被挂载后调用，这时 $el 被新创建的 vm.$el 替换了。 如果根实例挂载到了一个文档内的元素上，当 mounted() 被调用时
+  > vm.$el 也在文档内 。
 - **beforeUpdate()**（更新前）
-  > 是在 DOM 树生成之前、虚拟 DOM 树生成之后调用，调 用条件是这个 vm 实例已经
-  > mounted()过。该钩子函数在服务器渲染期间不被调用。
+  > 是在 DOM 树生成之前、虚拟 DOM 树生成之后调用，调 用条件是这个 vm 实例已经 mounted()过。该钩子函数在服务器渲染期间不
+  > 被调用。
 - **updated()**（更新后）
   > 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后 会调用该钩子。
 - **beforeDestroy()**（销毁前）
   > 实例销毁之前调用。在这一步，实例仍然完全可用。
 - **destroyed()**（销毁后）
-  > 实例销毁后调用。该钩子被调用后，对应 Vue 实例的所有 指令都被解绑，所有的事件
-  > 监听器被移除，所有的子实例也都被销毁。
+  > 实例销毁后调用。该钩子被调用后，对应 Vue 实例的所有 指令都被解绑，所有的事件监听器被移除，所有的子实例也都被销毁。
 
 ::: details 查看图解
 
@@ -71,8 +67,8 @@
 
 **生命周期函数的执行顺序？**
 
-Vue3 兼容 Vue2 语法，在 Vue3 中也可以使用 Vue2 的回调函数（beforeDestroy() 和
-destroyed() 除外），混合使用时，Vue3 的生命周期会优先于 Vue2 执行。
+Vue3 兼容 Vue2 语法，在 Vue3 中也可以使用 Vue2 的回调函数（beforeDestroy() 和 destroyed() 除外），混合使用时，Vue3 的生
+命周期会优先于 Vue2 执行。
 
 ::: details 查看答案
 
@@ -172,8 +168,8 @@ destroyed() 除外），混合使用时，Vue3 的生命周期会优先于 Vue2 
 
 ## customRef()
 
-自定义 ref，用来显式控制其依赖项的跟踪和更新触发，接收 `track()` 和 `trigger()`
-作为参数。可以使用这个 API 来控制视图更新时间，以及动态控制处理设置值.
+自定义 ref，用来显式控制其依赖项的跟踪和更新触发，接收 `track()` 和 `trigger()` 作为参数。可以使用这个 API 来控制视图更
+新时间，以及动态控制处理设置值.
 
 ::: details 基本用法
 
@@ -206,8 +202,7 @@ function TestcustomRef(value) {
 
 ## markRaw()
 
-`markRaw()` 方法标记一个对象，使其永远不会被转换为代理（Proxy），而是返回对象本
-身。
+`markRaw()` 方法标记一个对象，使其永远不会被转换为代理（Proxy），而是返回对象本身。
 
 ::: details 基本用法
 
@@ -234,8 +229,7 @@ const setmsg = () => {
 
 ## toRaw()
 
-使一个 proxy 只读对象或者 reactive 对象还原为普通对象，可用于临时读取，而不会引
-起代理访问/跟踪开销或写入而不会触发更改。
+使一个 proxy 只读对象或者 reactive 对象还原为普通对象，可用于临时读取，而不会引起代理访问/跟踪开销或写入而不会触发更改。
 
 ::: details 基本用法
 
@@ -250,3 +244,97 @@ console.log(toRaw(reactiveFoo) === foo); // true
 > 官网提醒：不建议持有对原始对象的持久性引用，需要我们谨慎使用这个 API。
 
 :::
+
+---
+
+## 虚拟 DOM
+
+:::tip 虚拟 DOM
+
+虚拟 DOM 简称 VNode, 其实是一棵以 JavaScript 对象作为基础的树，是对真实 DOM 的抽象。虚拟 DOM 经过一系列转换可以变成真实
+DOM 并渲染到页面上。
+
+:::
+
+我们可以用虚拟 DOM 来描述一个简单的 vue 组件，如下所示：
+
+:::details 查看案例
+
+```js:line-numbers
+<template>
+  <span class="demo" v-show="isShow"> This is a span. </span>
+</template>
+```
+
+对应的 VNode 如下：
+
+```json:line-numbers
+{
+    tag: 'span',
+    data: {
+        /* 指令集合数组 */
+        directives: [
+            {
+                /* v-show指令 */
+                rawName: 'v-show',
+                expression: 'isShow',
+                name: 'show',
+                value: true
+            }
+        ],
+        /* 静态class */
+        staticClass: 'demo'
+    },
+    text: undefined,
+    children: [
+        /* 子节点是一个文本VNode节点 */
+        {
+            tag: undefined,
+            data: undefined,
+            text: 'This is a span.',
+            children: undefined
+        }
+    ]
+}
+```
+
+:::
+
+---
+
+## Diff 算法
+
+对操作前后的 DOM 树同一层的节点进行对比，一层一层对比
+
+![Diff](/vue/diff.png)
+
+## v-for 中 key 的作用
+
+:::tip :key="唯一标识"
+
+v-for 中 key 的作用就是让每个被循环元素有一个唯一的身份标识，这样 Vue 就可以更加精准的追踪到每个元素，从而更加高效的更新
+页面。当然如果没有 key 程序也不会报错，只不过此时的程序变得非常的“笨”。
+
+:::
+
+加 key 和不加 key 的区别：
+
+:::details 查看图解
+
+> **需求：** 把一个数组 [A,B,C] 变成 [A,D,B,C] 同时页面也更新
+>
+> 不加 key，一共做了两次更新一次插入操作。
+>
+> ![不加key](/vue/diff-nokey.png)
+>
+> 加 key，只执行了一次插入操作。
+>
+> ![加key](/vue/diff-key.png)
+
+:::
+
+---
+
+## Vue2 组件通讯
+
+## Vue3 组件通讯

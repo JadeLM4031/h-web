@@ -15,7 +15,10 @@ export default defineConfig({
     logo: "/favicon.png",
     siteTitle: "H-web",
     description: "一个前端常见面试题整理的网站",
-    outlineTitle: "CONTENTS",
+    // 目录层级
+    // outline: [1, 3],
+    outlineTitle: "目录",
+    // 顶部菜单栏
     nav: [
       {
         text: "首页",
@@ -34,16 +37,17 @@ export default defineConfig({
         link: "/code/cloneDeep",
       },
       {
-        text: "1.0.0",
+        text: "1.2.5",
         items: [
-          {
-            text: "更新日志",
-            link: "https://github.com/ChaiMayor/hview-ui/blob/dev/CHANGELOG.md",
-          },
+          // {
+          //   text: "更新日志",
+          //   link: "https://github.com/ChaiMayor/hview-ui/blob/dev/CHANGELOG.md",
+          // },
           { text: "作者", link: "https://github.com/JadeLM4031" },
         ],
       },
     ],
+    // 左侧菜单栏
     sidebar: {
       "/component/": [
         {
@@ -52,6 +56,7 @@ export default defineConfig({
             { text: "HTML", link: "/component/html" },
             { text: "CSS", link: "/component/css" },
             { text: "JavaScript", link: "/component/javascript" },
+            { text: "浏览器 & HTTP", link: "/component/http" },
           ],
         },
         {
@@ -66,10 +71,16 @@ export default defineConfig({
       "/code/": [
         {
           text: "手写函数",
-          items: [{ text: "实现深拷贝", link: "/code/cloneDeep" }],
+          items: [
+            { text: "实现深拷贝", link: "/code/cloneDeep" },
+            { text: "节流", link: "/code/throttle" },
+            { text: "防抖", link: "/code/debounce" },
+            { text: "draggable 拖拽", link: "/code/draggable" },
+          ],
         },
       ],
     },
+    // 搜索
     algolia: {
       apiKey: "5668312912db676c6c8630be7af16d3b",
       indexName: "h-web-search",

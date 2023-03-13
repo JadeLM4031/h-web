@@ -1,7 +1,5 @@
-import MarkdownIt from "markdown-it";
 import MarkdownItContainer from "markdown-it-container";
 import TableContainer from "./table";
-import type { Token } from "markdown-it";
 
 import escapeHtml from "escape-html";
 import prism from "prismjs";
@@ -40,13 +38,13 @@ const highlight = (str: string, lang: string) => {
   return wrap(str, "text");
 };
 
-export const mdPlugin = (md: MarkdownIt) => {
+export const mdPlugin = (md) => {
   md.use(TableContainer);
   md.use(MarkdownItContainer, "code", {
     validate(params) {
       return params.trim().match(/^code\s*(.*)$/);
     },
-    render(tokens: Token[], idx: number) {
+    render(tokens: any[], idx: number) {
       const m = tokens[idx].info.trim().match(/^code\s+(.*)$/);
       if (tokens[idx].nesting === 1) {
         const sourceFile = m && m.length > 1 ? m[1] : "";
@@ -59,7 +57,7 @@ export const mdPlugin = (md: MarkdownIt) => {
         }
         if (!source) throw new Error(`Incorrect source file: ${sourceFile}`);
         return `<h-code source="${encodeURIComponent(highlight(source, "vue"))}" raw-source="${encodeURIComponent(
-          source,
+          source
         )}" page-name="${sourceFile}">`;
       } else {
         return "</h-code>";
