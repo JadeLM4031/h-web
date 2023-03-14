@@ -3,12 +3,12 @@ layout: home
 lang: zh-CN
 
 title: H-web
-titleTemplate: 一个Vue3组件库
+titleTemplate: 前端知识汇总
 
 hero:
   name: H-web
-  text: 前端问题汇总
-  tagline: 提供完整使用文档
+  text: 前端知识汇总
+  tagline: 提供知识大纲及相关案例
   image:
     src: /logo@2x.png
     alt: HviewUI
