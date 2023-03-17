@@ -7,7 +7,7 @@ export default defineConfig({
       "link",
       {
         rel: "icon",
-        href: "/favicon.png",
+        href: "/h-web/favicon.png",
       },
     ],
   ],
