@@ -129,3 +129,11 @@ padding 和 border 包含在内（不包含 margin），如果包含在内就是
 ## 常用选择器
 
 ![选择器](/html&css/selector.png)
+
+## 阻止事件冒泡
+
+- event.stopPropagation()
+
+## 阻止默认行为
+
+- event.preventDefault() // 比如 a 链接，阻止跳转这种
