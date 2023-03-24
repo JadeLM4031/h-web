@@ -57,6 +57,7 @@ export default defineConfig({
             { text: "CSS", link: "/component/css" },
             { text: "JavaScript", link: "/component/javascript" },
             { text: "浏览器 & HTTP", link: "/component/http" },
+            { text: "性能优化", link: "/component/upgrade" },
           ],
         },
         {
