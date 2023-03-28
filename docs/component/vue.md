@@ -853,7 +853,46 @@ Vue3 的通讯方式和 Vue2 类似，因为 component-api 没有了 this，所�
 
   1.  provide / inject
 
-      用于跨组件传递，使用上和 Vue2 一致。
+      :::details 查看代码
+
+      ```vue:line-numbers{7}
+      <!-- 在父组件中定义-->
+      <script>
+        import { provide,ref } from "vue"
+        export default {
+          setup(){
+            const name = ref("Liming")
+            provide("aaa",name)
+          }
+        };
+      </script>
+      ```
+
+      ***
+
+      ```vue:line-numbers{10,12}
+      <!-- 在任意一个子组件(跨级组件)中使用 -->
+      <template>
+        <div>{{ name }}</div>
+      </template>
+
+      <script>
+        import { inject } from "vue"
+        export default {
+          setup(){
+            const name = inject("aaa")
+            // 可以设置默认值。当父组件没有传值的时候，使用默认值
+            const name = inject("aaa","defaultName")
+
+            return {
+              name
+            }
+          }
+        };
+      </script>
+      ```
+
+      :::
 
   2.  **mitt**（事件总线）
 
@@ -1008,7 +1047,7 @@ Vue3 的通讯方式和 Vue2 类似，因为 component-api 没有了 this，所�
 
 ---
 
-```vue:line-numbers
+```vue:line-numbers{14,16-24,26-30,32-37}
 <!-- Vue3 中使用 computed 和 watch -->
 <template>
   <div>
@@ -1023,12 +1062,30 @@ Vue3 的通讯方式和 Vue2 类似，因为 component-api 没有了 this，所�
     setup() {
       const name = ref("");
       const myName = computed(() => `我的名字是${name.value}`);
-      watch(
-        () => name,
-        () => {
-          if (val.length > 3) alert("您输入的名字过长");
+      // 完整写法
+      const myName = computed(() =>{
+        get: function(){
+          return `我的名字是${this.name}`
+        },
+        set:function(value){
+          this.name = value
         }
-      );
+        // 修改myName的值需要使用 myName.value
+      })
+      // watch第一个参数可以为数组，监听多个数据
+      watch(name, (newValue,oldValue)=>{
+        console.log(newValue,oldValue)
+      }, {
+        immediate: true // 默认为false
+      })
+      // 监听reactive对象改变，返回原生对象 （默认返回proxy对象）
+      watch(()=>({...info}), (newValue,oldValue)=>{
+        console.log(newValue,oldValue)
+      }, {
+        deep: true, // 对象深度监听，默认为 false
+        immediate: true //首次加载立刻执行
+      })
+
       return {
         name,
         myName,
@@ -1036,6 +1093,45 @@ Vue3 的通讯方式和 Vue2 类似，因为 component-api 没有了 this，所�
     },
   };
 </script>
+```
+
+:::
+
+---
+
+## watch 和 watchEffect 区别
+
+**watch：** 既要指明监视的属性，也要指明监视的回调。
+
+**watchEffect：** 不用指明监视哪个属性，监视的回调中用到哪个属性，那就监视哪个属性。
+
+watchEffect 的函数会被立即执行一次，当依赖的数据发生变化再次执行函数。也可以调用返回函数停止监听。
+
+:::details 查看案例
+
+```vue:line-numbers{7-14}
+<script>
+  import { ref,watchEffect } from "vue"
+  export default {
+    setup(){
+      const counter = ref(0)
+
+      const stopWatch = watchEffect(()=>{
+        // 当counter值改变时自动执行该函数
+        console.log(counter.value)
+        // 当counter的值大于等于10的时候，停止监听
+        if(counter.value>=10){
+          stopWatch()
+        }
+      })
+
+      return {
+        counter
+      }
+    }
+  }
+</script>
+
 ```
 
 :::
@@ -1104,6 +1200,34 @@ button {
 :::
 
 ---
+
+## Options API 和 Composition API
+
+Options API 弊端：实现某个功能的时候，会把对应代码逻辑分散到各个属性中，不利于阅读维护
+
+Composition API：可以将某个功能的所有逻辑写一块，放到 setup()里
+
+:::details 查看图解
+
+![API对比](/vue/compare-api.png)
+
+:::
+
+注意：setup()里没有 this
+
+**setup(props,context) 参数：**
+
+1. props
+
+   父组件传递过来的属性
+
+2. context
+
+   > attrs：所有的非 prop 的 attribute；
+   >
+   > slots：父组件传递过来的插槽（这个在以渲染函数返回时会有作用）
+   >
+   > emit：当我们组件内部需要发出事件时会用到 emit（不可以通过 this.$emit 发出事件）；
 
 ## 不常用的 Composition API
 
@@ -1189,7 +1313,7 @@ console.log(toRaw(reactiveFoo) === foo); // true
 
 ---
 
-## -------注意事项-------
+## --------细节--------
 
 ## Vue2 中 methods 内不能用箭头函数
 
