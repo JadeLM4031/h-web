@@ -34,3 +34,28 @@
   ```
 
   :::
+
+- **路由懒加载**
+
+  只有在跳转到当前路由才加载对应组件，缩短首屏加载事件
+
+  ::: details 查看案例
+
+  ```js:line-numbers{11}
+  const router = createRouter({
+    // hash模式，带#
+    // history: createWebHashHistory(),
+    //history模式，不带#
+    history: createWebHistory(),
+    routes: [
+      { path: "/", redirect: "/home" },
+      {
+        path: "/home",
+        // webpack3.x开始支持对分包进行命名
+        component: () => import(/* webpackChunkName: "home-chunk" */ "../view/Home.vue"),
+      },
+    ],
+  });
+  ```
+
+  :::

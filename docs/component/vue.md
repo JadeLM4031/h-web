@@ -1313,6 +1313,19 @@ console.log(toRaw(reactiveFoo) === foo); // true
 
 ---
 
+## 路由导航守卫执行流程
+
+完整的导航解析流程查看
+[vue-router 官网](https://router.vuejs.org/zh/guide/advanced/navigation-guards.html)
+
+:::details 查看截图
+
+!["完整的导航解析流程"](/vue/vue-router.png)
+
+:::
+
+---
+
 ## --------细节--------
 
 ## Vue2 中 methods 内不能用箭头函数
