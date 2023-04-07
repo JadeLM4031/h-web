@@ -77,6 +77,8 @@ export default defineConfig({
             { text: "节流", link: "/code/throttle" },
             { text: "防抖", link: "/code/debounce" },
             { text: "draggable 拖拽", link: "/code/draggable" },
+            { text: "手写 apply&call", link: "/code/apply&call" },
+            { text: "实现 async 函数", link: "/code/async" },
           ],
         },
       ],

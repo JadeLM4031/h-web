@@ -1,3 +1,9 @@
+## Flex & Grid 布局
+
+[点此练习](https://codepip.com/games/)
+
+---
+
 ## 文本溢出
 
 ### 单行文本溢出
@@ -61,8 +67,8 @@ overflow: hidden; // 溢出多余裁剪
 
 ::: tip 伪类
 
-用于已有元素处于某种状态时为其添加对应的样式，这个状态是根据用户行为而动态变化的。主要是用来描述用户
-的行为。
+用于已有元素处于某种状态时为其添加对应的样式，这个状态是根据用户行为而动态变化的
+。主要是用来描述用户的行为。
 
 :::
 
@@ -78,8 +84,8 @@ overflow: hidden; // 溢出多余裁剪
 
 ::: tip 伪元素
 
-用于创建一些不在 DOM 树中的元素，并为其添加样式。主要用于扩展 DOM。一些简单的样式可以用伪元素实现，
-减少项目中图片资源的请求。
+用于创建一些不在 DOM 树中的元素，并为其添加样式。主要用于扩展 DOM。一些简单的样
+式可以用伪元素实现，减少项目中图片资源的请求。
 
 :::
 
@@ -122,9 +128,9 @@ overflow: hidden; // 溢出多余裁剪
 
 :::
 
-**总结：** 默认是标准盒模型，当设置 `box-sizing: border-box` 时，div 就会变成 IE 盒模型。两种盒模型
-的区别就是有没有把 padding 和 border 包含在内（不包含 margin），如果包含在内就是 IE 盒模型，否则就是
-标准盒模型。
+**总结：** 默认是标准盒模型，当设置 `box-sizing: border-box` 时，div 就会变成 IE
+盒模型。两种盒模型的区别就是有没有把 padding 和 border 包含在内（不包含 margin）
+，如果包含在内就是 IE 盒模型，否则就是标准盒模型。
 
 ---
 
@@ -153,7 +159,8 @@ overflow: hidden; // 溢出多余裁剪
 - 文本溢出：使用 text-overflow 属性设置当内容溢出容器时，在页面上的显示方式。
 - 圆角边框：使用 border-radius 属性设置圆角边框。
 - 盒子阴影：使用 box-shadow 属性给元素添加阴影效果。
-- 背景属性：包括 background-size、background-image、background-position、background-repeat。
+- 背景属性：包括
+  background-size、background-image、background-position、background-repeat。
 - 渐变属性：包括线性渐变（linear-gradient）和径向渐变（radial-gradient）。
 - 元素转换：包括元素旋转（rotate）、元素移动（translate）、元素缩放（scale）。
 - 过渡属性：使用 transition 属性过渡的效果。
@@ -260,14 +267,16 @@ background-size: length|percentage|cover|contain;
 background-image: url(), url(), ..., url();
 ```
 
-若想让图片放在我们想要的位置，可以使用 `background-position` 属性设置图片显示的位置。语法如下：
+若想让图片放在我们想要的位置，可以使用 `background-position` 属性设置图片显示的
+位置。语法如下：
 
 ```css
 /*图片显示的位置*/
 background-position: position1, position2, ..., positionN;
 ```
 
-若想要设置图片是否重复显示在页面上，我们可以添加 `background-repeat` 属性。语法如下：
+若想要设置图片是否重复显示在页面上，我们可以添加 `background-repeat` 属性。语法
+如下：
 
 ```css
 /*图片是否重复*/
@@ -349,8 +358,8 @@ background-image: linear-gradient(side-or-corner|angle, linear-color-stop);
 
 **重复性线性渐变**
 
-重复性线性渐变是用重复的线性渐变组成的 `<image>`，它与线性渐变的区别在于，它会在所有方向上重复渐变来
-覆盖整个元素。
+重复性线性渐变是用重复的线性渐变组成的 `<image>`，它与线性渐变的区别在于，它会在
+所有方向上重复渐变来覆盖整个元素。
 
 ```css
 background-image: repeating-linear-gradient(side-or-corner|angle, color-stop);
@@ -478,8 +487,8 @@ background-image: radial-gradient(shape, color-stop);
 
 **重复性径向渐变**
 
-重复性径向渐变是用重复性的径向渐变组成的图像。它与径向渐变的区别在于，它会从原点开始重复径向渐变来覆
-盖整个元素。
+重复性径向渐变是用重复性的径向渐变组成的图像。它与径向渐变的区别在于，它会从原点
+开始重复径向渐变来覆盖整个元素。
 
 ```css
 background: repeating-radial-gradient(extent-keyword, color-stop);
@@ -517,7 +526,13 @@ background: repeating-radial-gradient(extent-keyword, color-stop);
         );
       }
       .gradient2 {
-        background: repeating-radial-gradient(farthest-side, #8843f8, #ef2f88, #f47340, #f9d371);
+        background: repeating-radial-gradient(
+          farthest-side,
+          #8843f8,
+          #ef2f88,
+          #f47340,
+          #f9d371
+        );
       }
     </style>
   </head>
@@ -577,8 +592,8 @@ transition-timing-function: 属性值; /*速度曲线*/
 transition-delay: 属性值; /*过渡的开始时间*/
 ```
 
-`transition-timing-function` 属性用来设置过渡效果从开始到结束的时间曲线，它有很多可用属性值，常用属
-性值如下表所示。
+`transition-timing-function` 属性用来设置过渡效果从开始到结束的时间曲线，它有很
+多可用属性值，常用属性值如下表所示。
 
 | 属性值                    | 说明                                                                                                    |
 | ------------------------- | ------------------------------------------------------------------------------------------------------- |
@@ -598,8 +613,8 @@ transition-delay: 属性值; /*过渡的开始时间*/
 
 ## 动画
 
-`@keyframes` 被称为关键帧，它能够设置一些元素的样式，让该元素可以从原来的样式渐渐过渡到新的样式中。
-其语法格式如下所示：
+`@keyframes` 被称为关键帧，它能够设置一些元素的样式，让该元素可以从原来的样式渐
+渐过渡到新的样式中。其语法格式如下所示：
 
 ```css
 @keyframes 动画名
@@ -611,10 +626,11 @@ transition-delay: 属性值; /*过渡的开始时间*/
 }
 ```
 
-这里的百分比是用来规定动画发生变化的时间的，`0%` 代表动画的开始，`100%` 代表动画的结束，中间的可以自
-定义。
+这里的百分比是用来规定动画发生变化的时间的，`0%` 代表动画的开始，`100%` 代表动画
+的结束，中间的可以自定义。
 
-将 `@keyframes` 创建的动画绑定到选择器上，通过 `animation` 属性就能实现动画效果了，其语法格式为：
+将 `@keyframes` 创建的动画绑定到选择器上，通过 `animation` 属性就能实现动画效果
+了，其语法格式为：
 
 ```css
 animation: 动画名 完成动画的周期 是否重复;
@@ -638,12 +654,13 @@ animation: 动画名 完成动画的周期 是否重复;
 
 :::tip 弹性盒子
 
-在 CSS3 中给 display 属性增加了新的属性值 flex，如果一个元素被设置 display:flex，说明该元素为弹性布
-局，也就是个弹性盒子。
+在 CSS3 中给 display 属性增加了新的属性值 flex，如果一个元素被设置
+display:flex，说明该元素为弹性布局，也就是个弹性盒子。
 
 :::
 
-flex 主要由两个轴来控制布局（main axis 是主轴，cross axis 是交叉轴），如下图所示。
+flex 主要由两个轴来控制布局（main axis 是主轴，cross axis 是交叉轴），如下图所示
+。
 
 ![弹性盒子](/html&css/flex.png)
 
@@ -699,7 +716,8 @@ flex 主要由两个轴来控制布局（main axis 是主轴，cross axis 是交
   `align-content` 属性可以用于控制多行的对齐方式，如果只有一行则不会起作用。
 
   ```css
-  align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+  align-content: flex-start | flex-end | center | space-between | space-around |
+    stretch;
   ```
 
   | 属性值        | 描述                                                                   |
