@@ -761,7 +761,9 @@ console.log(5);
 
 :::
 
-添加任务到微队列的主要方式主要是使用 Promise、MutationObserver 例如：
+添加任务到微队列的主要方式主要是使用 Promise、MutationObserver，（async 函数里遇
+到 await 之前的代码是同步里的，遇到 await 时，会执行 await 后面的函数，然后返回
+一个 promise，把 await 下面的代码放入微队列，并且退出这个 async 函数。） 例如：
 
 ```js
 // 立即把一个函数添加到微队列
@@ -1017,17 +1019,17 @@ Math 的常用方法如下表所示：
 
 其常用方法如下所示：
 
-| 方法          | 描述                   |
-| ------------- | ---------------------- |
-| getDate()     | 返回一个月的某一天。   |
-| getDay()      | 返回一周中的某一天。   |
-| getFullYear() | 返回年份。             |
-| getHours()    | 返回小时。             |
-| getMonth()    | 返回月份。             |
-| getTime()     | 返回毫秒数。           |
-| setFullYear() | 设置年份。             |
-| setDate()     | 设置一个月中的某一天。 |
-| setMonth()    | 设置月份。             |
+| 方法          | 描述                      |
+| ------------- | ------------------------- |
+| getDate()     | 返回日（几号）。          |
+| getDay()      | 返回周几。                |
+| getFullYear() | 返回年份。                |
+| getHours()    | 返回小时。                |
+| getMonth()    | 返回月份。(默认从 0 开始) |
+| getTime()     | 返回毫秒数。              |
+| setFullYear() | 设置年份。                |
+| setDate()     | 设置一个月中的某一天。    |
+| setMonth()    | 设置月份。                |
 
 ## 数组对象——常用方法
 

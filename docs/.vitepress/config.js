@@ -37,6 +37,11 @@ export default defineConfig({
         link: "/code/cloneDeep",
       },
       {
+        text: "工具函数",
+        activeMatch: "/tool",
+        link: "/tool/base",
+      },
+      {
         text: "1.2.5",
         items: [
           // {
@@ -82,6 +87,16 @@ export default defineConfig({
           ],
         },
       ],
+      "/tool/": [
+        {
+          text: "工具函数",
+          items: [
+            {
+              text: "基础工具函数", link: "/tool/base"
+            },
+          ]
+        }
+      ]
     },
     // 搜索
     algolia: {

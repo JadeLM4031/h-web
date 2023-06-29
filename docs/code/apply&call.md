@@ -98,8 +98,6 @@ fn.myCall(obj, 1, 2, 3); // 执行函数 fn，输出 16
 fn.myCall(0); // Uncaught TypeError: context.fn is not a function
 ```
 
-![](D:\Note\AAA临时使用.assets\1bef7f4d353b7932d9abe6a9d8048bd2-0.jpeg)
-
 这时，就需要参考一下原生的 `call` 函数是如何解决的这个问题：
 
 `undefined` 和 `null` 指向了 `window`，原始类型和引用类型都是 `undefined`。
