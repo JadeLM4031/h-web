@@ -15,4 +15,20 @@ getParam (key) {
 },
 ```
 
---- 
+---
+
+## js 中设置 css 变量
+
+```css
+/* css文件 */
+:root {
+  --aaa: 20px;
+}
+```
+
+```js
+// js文件
+document.documentElement.style.setProperty("--aaa", "16px")
+```
+
+---
