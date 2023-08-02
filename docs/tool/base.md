@@ -32,3 +32,44 @@ document.documentElement.style.setProperty("--aaa", "16px")
 ```
 
 ---
+
+## 封装 axios
+
+```js
+import axios from "axios"
+
+import nprogress from "nprogress"
+import "nprogress/nprogress.css"
+
+// 创建axios实例
+const service = axios.create({
+  baseURL: "", // 设置基础请求路径
+  timeout: 5000, // 设置超时
+})
+
+// 请求拦截器
+service.interceptors.request.use((configs) => {
+  // 请求头追加token
+  if (token) {
+    configs.headers.token = token
+  }
+  // 进度条
+  nprogress.start()
+  return configs
+})
+
+// 响应拦截器
+service.interceptors.response.use(
+  (res) => {
+    // 成功的回调
+    nprogress.done()
+    return res.data
+  },
+  (error) => {
+    console.log("error", error)
+  }
+)
+export default service
+```
+
+---

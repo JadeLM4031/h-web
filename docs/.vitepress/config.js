@@ -1,5 +1,5 @@
-import { defineConfig } from "vitepress";
-import { mdPlugin } from "./config/plugins";
+import { defineConfig } from "vitepress"
+import { mdPlugin } from "./config/plugins"
 export default defineConfig({
   base: "/h-web",
   head: [
@@ -91,12 +91,10 @@ export default defineConfig({
         {
           text: "工具函数",
           items: [
-            {
-              text: "基础工具函数", link: "/tool/base"
-            },
-          ]
-        }
-      ]
+            { text: "常用工具", link: "/tool/base" },
+          ],
+        },
+      ],
     },
     // 搜索
     algolia: {
@@ -198,4 +196,4 @@ export default defineConfig({
 
   // srcDir: "./component",
   cleanUrls: true,
-});
+})
