@@ -42,7 +42,7 @@ export default defineConfig({
         link: "/tool/base",
       },
       {
-        text: "1.2.5",
+        text: "1.2.6",
         items: [
           // {
           //   text: "更新日志",

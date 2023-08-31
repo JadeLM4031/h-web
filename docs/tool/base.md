@@ -2,7 +2,7 @@
 
 ## js 获取路径参数
 
-```js
+```js:line-numbers
 getParam (key) {
   const URL = window.location.href.split('?')[1];
   let obj = {}; // 声明参数对象
@@ -19,7 +19,7 @@ getParam (key) {
 
 ## js 中设置 css 变量
 
-```css
+```css:line-numbers
 /* css文件 */
 :root {
   --aaa: 20px;
@@ -35,7 +35,7 @@ document.documentElement.style.setProperty("--aaa", "16px")
 
 ## 封装 axios
 
-```js
+```js:line-numbers
 import axios from "axios"
 
 import nprogress from "nprogress"
@@ -73,3 +73,53 @@ export default service
 ```
 
 ---
+
+## 时间格式 format
+
+- 放到原型上
+
+```js:line-numbers
+Date.prototype.Format = function (fmt) {
+  var o = {
+    "M+": this.getMonth() + 1, //月份
+    "d+": this.getDate(), //日
+    "h+": this.getHours(), //小时
+    "m+": this.getMinutes(), //分
+    "s+": this.getSeconds(), //秒
+    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+    "S": this.getMilliseconds(), //毫秒
+  }
+  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substring(4 - RegExp.$1.length))
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substring(("" + o[k]).length))
+  return fmt
+}
+
+// 使用如下
+new Date().Format("yyyy-MM-dd hh:mm:ss")
+```
+
+- 封装单独函数
+
+```js:line-numbers
+format = function (date, fmt) {
+  var o = {
+    "M+": date.getMonth() + 1, //月份
+    "d+": date.getDate(), //日
+    "h+": date.getHours(), //小时
+    "m+": date.getMinutes(), //分
+    "s+": date.getSeconds(), //秒
+    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+    "S": date.getMilliseconds(), //毫秒
+  }
+  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substring(4 - RegExp.$1.length))
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substring(("" + o[k]).length))
+  return fmt
+}
+
+// 使用如下，data传入日期对象
+format(new Date(), "yyyy-MM-dd hh:mm:ss")
+```
