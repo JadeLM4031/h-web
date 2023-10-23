@@ -122,11 +122,11 @@
   ::: details 查看案例
 
   ```js
-  const arr = [1, 2, 3];
-  const newArr = arr.slice(0);
-  arr[2] = 100; // 改变原来的数组
-  console.log(newArr); // [1, 2, 3] // 新数组不变
-  console.log(arr == newArr); // false 两者指向不同地址
+  const arr = [1, 2, 3]
+  const newArr = arr.slice(0)
+  arr[2] = 100 // 改变原来的数组
+  console.log(newArr) // [1, 2, 3] // 新数组不变
+  console.log(arr == newArr) // false 两者指向不同地址
   ```
 
   :::
@@ -136,11 +136,11 @@
   ::: details 查看案例
 
   ```js
-  const arr = [1, 2, 3];
-  const newArr = [].concat(arr);
-  arr[2] = 100; // 改变原来的数组
-  console.log(newArr); // [1, 2, 3] // 新数组不变
-  console.log(arr == newArr); // false 两者指向不同地址
+  const arr = [1, 2, 3]
+  const newArr = [].concat(arr)
+  arr[2] = 100 // 改变原来的数组
+  console.log(newArr) // [1, 2, 3] // 新数组不变
+  console.log(arr == newArr) // false 两者指向不同地址
   ```
 
   :::
@@ -152,11 +152,11 @@
   ::: details 查看案例
 
   ```js
-  const arr = [1, 2, 3];
-  const newArr = Array.from(arr);
-  arr[2] = 100; // 改变原来的数组
-  console.log(newArr); // [1, 2, 3] // 新数组不变
-  console.log(arr == newArr); // false 两者指向不同地址
+  const arr = [1, 2, 3]
+  const newArr = Array.from(arr)
+  arr[2] = 100 // 改变原来的数组
+  console.log(newArr) // [1, 2, 3] // 新数组不变
+  console.log(arr == newArr) // false 两者指向不同地址
   ```
 
   :::
@@ -179,7 +179,7 @@
 
 ```js
 function Demo() {}
-Demo.prototype.constructor === Demo; // true
+Demo.prototype.constructor === Demo // true
 ```
 
 ::: details 查看 Demo.prototype 结构
@@ -194,8 +194,8 @@ Demo.prototype.constructor === Demo; // true
 
 ```js
 function Demo() {}
-const d = new Demo();
-d.__proto__ === Demo.prototype; // true
+const d = new Demo()
+d.__proto__ === Demo.prototype // true
 ```
 
 ### 原型链执行流程
@@ -207,17 +207,17 @@ d.__proto__ === Demo.prototype; // true
 
 ```js
 function Demo() {
-  this.name = "蓝桥";
+  this.name = "蓝桥"
 }
 Demo.prototype.say = function () {
-  console.log("我是", this.name);
-};
+  console.log("我是", this.name)
+}
 
-const d = new Demo();
+const d = new Demo()
 
 // 虽然 Demo 上没有 say 方法，但是因为Demo的prototype上有此方法，所以下面的调用可以正常打印。
 
-d.say(); // 我是蓝桥
+d.say() // 我是蓝桥
 ```
 
 ![原型链基本流程](/javascript/proto-process.png)
@@ -253,13 +253,13 @@ d.say(); // 我是蓝桥
 
 ```js
 function fn() {
-  console.log(this.name);
+  console.log(this.name)
 }
 
 const obj = {
   name: "zhangsan",
-};
-fn.call(obj); // 指定 this 为 obj，输出 'zhangsan'
+}
+fn.call(obj) // 指定 this 为 obj，输出 'zhangsan'
 ```
 
 :::
@@ -277,17 +277,17 @@ fn.call(obj); // 指定 this 为 obj，输出 'zhangsan'
 
 ```js
 function add(x, y, z) {
-  return this.x + this.y + this.z;
+  return this.x + this.y + this.z
 }
 
 const obj = {
   x: 1,
   y: 2,
   z: 3,
-};
+}
 
-console.log(add.call(obj, 1, 2, 3)); // 输出 6
-console.log(add.apply(obj, [1, 2, 3])); // 输出 6，只是传参形式不同而已
+console.log(add.call(obj, 1, 2, 3)) // 输出 6
+console.log(add.apply(obj, [1, 2, 3])) // 输出 6，只是传参形式不同而已
 ```
 
 :::
@@ -305,17 +305,17 @@ console.log(add.apply(obj, [1, 2, 3])); // 输出 6，只是传参形式不同�
 
 ```js
 function add(x, y, z) {
-  return this.x + this.y + this.z;
+  return this.x + this.y + this.z
 }
 
 const obj = {
   x: 1,
   y: 2,
   z: 3,
-};
+}
 
-const add1 = add.bind(obj, 1, 2, 3); // bind 会返回一个新的函数
-console.log(add1()); // 执行新的函数，输出 6
+const add1 = add.bind(obj, 1, 2, 3) // bind 会返回一个新的函数
+console.log(add1()) // 执行新的函数，输出 6
 ```
 
 :::
@@ -355,21 +355,21 @@ const 工作方式与 let 类似，但是定义的时候必须赋值并且不能
 > var 声明变量没有暂时性死区
 
 ```js
-(() => {
-  console.log(i); // undefined
-  var i = 1;
-  console.log(i); // 1
-})();
+;(() => {
+  console.log(i) // undefined
+  var i = 1
+  console.log(i) // 1
+})()
 ```
 
 > let 声明变量有暂时性死区
 
 ```js
-(() => {
-  console.log(i); // Cannot access 'i' before initialization
-  let i = 1;
-  console.log(i); // 1
-})();
+;(() => {
+  console.log(i) // Cannot access 'i' before initialization
+  let i = 1
+  console.log(i) // 1
+})()
 ```
 
 :::
@@ -384,15 +384,15 @@ es6 之前 JavaScript 只有函数级作用域，没有块级作用域。
 
 ```js
 function demo() {
-  var a = "蓝桥";
-  console.log(a); // 蓝桥
+  var a = "蓝桥"
+  console.log(a) // 蓝桥
 }
-console.log(a); //a is not defined
+console.log(a) //a is not defined
 
 if (true) {
-  var b = "bbb";
+  var b = "bbb"
 }
-console.log(b); // bbb(如果if条件为false则输出undefined)
+console.log(b) // bbb(如果if条件为false则输出undefined)
 ```
 
 :::
@@ -404,8 +404,8 @@ console.log(b); // bbb(如果if条件为false则输出undefined)
 ```js
 for (var i = 0; i < 10; i++) {
   setTimeout(function () {
-    console.log(i);
-  }, 1000);
+    console.log(i)
+  }, 1000)
 }
 ```
 
@@ -441,13 +441,13 @@ for (var i = 0; i < 10; i++) {
 
 ```js
 function demo() {
-  var a = "aaa";
+  var a = "aaa"
   return function () {
-    return a;
-  };
+    return a
+  }
 }
-const d = demo();
-console.log(d()); // aaa
+const d = demo()
+console.log(d()) // aaa
 ```
 
 通过在 demo 函数中返回一个函数，在返回的函数中再返回这个变量，然后当我们在外部去
@@ -464,8 +464,8 @@ console.log(d()); // aaa
 ```js
 for (let i = 0; i < 10; i++) {
   setTimeout(function () {
-    console.log(i);
-  }, 1000);
+    console.log(i)
+  }, 1000)
 }
 ```
 
@@ -474,11 +474,11 @@ for (let i = 0; i < 10; i++) {
 
 ```js
 for (var i = 0; i < 10; i++) {
-  (function (i) {
+  ;(function (i) {
     setTimeout(function () {
-      console.log(i);
-    }, 1000);
-  })(i);
+      console.log(i)
+    }, 1000)
+  })(i)
 }
 ```
 
@@ -497,13 +497,13 @@ for (var i = 0; i < 10; i++) {
   const people = {
     name: "张三",
     love: "吃饭",
-  };
+  }
   // 把 name 和 love 解构出来
-  const { name, love } = people;
-  console.log(name, love); // 张三 吃饭
+  const { name, love } = people
+  console.log(name, love) // 张三 吃饭
   // 扩展运算符
-  const user = { ...people };
-  console.log(user); // {name: '张三', love: '吃饭'}
+  const user = { ...people }
+  console.log(user) // {name: '张三', love: '吃饭'}
   ```
 
   :::
@@ -516,9 +516,9 @@ for (var i = 0; i < 10; i++) {
 
   ```js
   function demo(name = "张三") {
-    console.log("我是" + name);
+    console.log("我是" + name)
   }
-  console.log(demo.length); // 输出0 实际是有一个参数
+  console.log(demo.length) // 输出0 实际是有一个参数
   ```
 
   :::
@@ -528,8 +528,8 @@ for (var i = 0; i < 10; i++) {
   基本数据类型,表示独一无二的值. Symbol 值通过 `symbol` 函数生成
 
   ```js
-  const fnName = Symbol();
-  typeof fnName; // "symbol"
+  const fnName = Symbol()
+  typeof fnName // "symbol"
   ```
 
 - **Set 和 Map 数据结构**
@@ -541,22 +541,22 @@ for (var i = 0; i < 10; i++) {
   > **基本使用**
 
   ```js
-  const arr = new Set([1, 2, 3]);
+  const arr = new Set([1, 2, 3])
 
-  arr.add(4); // 向arr中添加元素
-  arr.delete(1); // 删除数据为1的元素
-  arr.size; // 返回arr长度
-  arr.has(2); // 判断arr中是否有2这个元素
-  arr.clear(); // 清除所有元素
+  arr.add(4) // 向arr中添加元素
+  arr.delete(1) // 删除数据为1的元素
+  arr.size // 返回arr长度
+  arr.has(2) // 判断arr中是否有2这个元素
+  arr.clear() // 清除所有元素
   ```
 
   > **数组去重**
 
   ```js
-  const arr = [1, 2, 3, 4, 1, 2, 3];
-  const arr2 = [...new Set(arr)];
+  const arr = [1, 2, 3, 4, 1, 2, 3]
+  const arr2 = [...new Set(arr)]
 
-  console.log(arr2); // [1,2,3,4]
+  console.log(arr2) // [1,2,3,4]
   ```
 
   :::
@@ -569,23 +569,23 @@ for (var i = 0; i < 10; i++) {
   > **基本使用**
 
   ```js
-  const m = new Map();
+  const m = new Map()
 
-  m.set("name", "张三"); // 设置元素
-  m.get("name"); // 张三
-  m.has("name"); // 判断有没有这个元素
-  m.size; // 获取map的长度
+  m.set("name", "张三") // 设置元素
+  m.get("name") // 张三
+  m.has("name") // 判断有没有这个元素
+  m.size // 获取map的长度
   ```
 
   > **键为 object 类型**
 
   ```js
-  const m = new Map();
+  const m = new Map()
   const k = {
     name: "张三",
-  };
-  m.set(k, 18);
-  m.get(k); // 18
+  }
+  m.set(k, 18)
+  m.get(k) // 18
   ```
 
   :::
@@ -666,19 +666,19 @@ JavaScript 是单线程,但浏览器是多线程的,JavaScript 执行在浏览�
 以下代码的执行结果是?
 
 ```js
-console.log(1);
+console.log(1)
 setTimeout(() => {
-  console.log(2);
-});
+  console.log(2)
+})
 
 new Promise((res, req) => {
-  console.log(3);
-  res();
+  console.log(3)
+  res()
 }).then(() => {
-  console.log(4);
-});
+  console.log(4)
+})
 
-console.log(5);
+console.log(5)
 ```
 
 ::: details 查看答案
@@ -767,7 +767,7 @@ console.log(5);
 
 ```js
 // 立即把一个函数添加到微队列
-Promise.resolve().then(函数);
+Promise.resolve().then(函数)
 ```
 
 ---
@@ -1038,7 +1038,7 @@ Math 的常用方法如下表所示：
   > 取数组中下标从 2 到 4 的值
   >
   > ```js
-  > arr.slice(2, 4);
+  > arr.slice(2, 4)
   > ```
 
 - **unshift()**
@@ -1046,7 +1046,7 @@ Math 的常用方法如下表所示：
   > 在数组的头部增加新元素。
   >
   > ```js
-  > arr.unshift(待添加项);
+  > arr.unshift(待添加项)
   > ```
 
 - **shift()**
@@ -1054,7 +1054,7 @@ Math 的常用方法如下表所示：
 > 删除数组的首元素。
 >
 > ```js
-> arr.shift();
+> arr.shift()
 > ```
 
 - **sort()**
@@ -1062,7 +1062,7 @@ Math 的常用方法如下表所示：
 > 给数组中的元素从小到大进行排序。
 >
 > ```js
-> arr.sort();
+> arr.sort()
 > ```
 
 - **reverse()**
@@ -1070,7 +1070,7 @@ Math 的常用方法如下表所示：
   > 将数组中的元素进行逆序排列。
   >
   > ```js
-  > arr.reverse();
+  > arr.reverse()
   > ```
 
 - **join()**
@@ -1078,7 +1078,7 @@ Math 的常用方法如下表所示：
   > 将数组中的字符拼接成字符串。
   >
   > ```js
-  > arr.join();
+  > arr.join()
   > ```
 
 - **concat()**
@@ -1087,7 +1087,7 @@ Math 的常用方法如下表所示：
   >
   > ```js
   > // 将 数组2 拼接到 数组1 里
-  > 数组1.concat(数组2);
+  > 数组1.concat(数组2)
   > ```
 
 - **includes()**
@@ -1095,7 +1095,7 @@ Math 的常用方法如下表所示：
   > 用来判断该数组中是否包含某个元素。
   >
   > ```js
-  > arr.includes(元素);
+  > arr.includes(元素)
   > ```
 
 - **toString()**
@@ -1103,7 +1103,7 @@ Math 的常用方法如下表所示：
 > 将数组中的值转换成字符串类型。
 >
 > ```js
-> arr.toString();
+> arr.toString()
 > ```
 
 - **indexOf()**
@@ -1112,7 +1112,7 @@ Math 的常用方法如下表所示：
   > 元素下标。如果找不到，返回 -1。）
   >
   > ```js
-  > arr.indexOf(元素);
+  > arr.indexOf(元素)
   > ```
 
 - **Array.from()**
@@ -1123,7 +1123,7 @@ Math 的常用方法如下表所示：
   > 2. 可遍历的对象（iterable-object）。
   >
   > ```js
-  > Array.from(待转换的对象);
+  > Array.from(待转换的对象)
   > ```
 
 - **find()**
@@ -1133,7 +1133,7 @@ Math 的常用方法如下表所示：
   > 素，如果没找到，则返回 undefined.
   >
   > ```js
-  > array.find(callback(value, index, arr), thisValue);
+  > array.find(callback(value, index, arr), thisValue)
   > ```
   >
   > 参数说明如下：
@@ -1157,7 +1157,7 @@ Math 的常用方法如下表所示：
 > 注意：执行回调函数时，会自动传入 value、index、arr 这三个参数
 >
 > ```js
-> array.findIndex(callback(value, index, arr), thisArg);
+> array.findIndex(callback(value, index, arr), thisArg)
 > ```
 >
 > 参数说明如下：
@@ -1180,7 +1180,7 @@ Math 的常用方法如下表所示：
 > 注意：如果不指定 start 和 end 参数，该方法会默认填充整个数组的值。
 >
 > ```js
-> array.fill(value, start, end);
+> array.fill(value, start, end)
 > ```
 >
 > 其参数说明如下：
@@ -1200,17 +1200,17 @@ Math 的常用方法如下表所示：
 > 语法格式为：
 >
 > ```js
-> array.entries();
+> array.entries()
 > ```
 >
 > 三种方法使用均需要`...`展开
 >
 > ```js
-> let arr = ["🐱", "🐶", "🐰", "🐍", "🐦", "🐟"];
-> let result = arr.entries();
-> let result = arr.keys();
-> let result = arr.values();
-> console.log(...result);
+> let arr = ["🐱", "🐶", "🐰", "🐍", "🐦", "🐟"]
+> let result = arr.entries()
+> let result = arr.keys()
+> let result = arr.values()
+> console.log(...result)
 > ```
 
 ## 字符串对象——常用方法
@@ -1220,7 +1220,7 @@ Math 的常用方法如下表所示：
   > 把字符串的大写字母转换成小写字母。
   >
   > ```js
-  > 字符串.toLowerCase();
+  > 字符串.toLowerCase()
   > ```
 
 - **toUpperCase()**
@@ -1228,7 +1228,7 @@ Math 的常用方法如下表所示：
   > 把字符串中的小写字母转换成大写字母。
   >
   > ```js
-  > 字符串.toUpperCase();
+  > 字符串.toUpperCase()
   > ```
 
 - **charAt()**
@@ -1236,7 +1236,7 @@ Math 的常用方法如下表所示：
   > 根据指定下标从一个字符串中返回指定的字符。（类似数组的 arr[0] ）
   >
   > ```js
-  > 字符串.charAt(下标值);
+  > 字符串.charAt(下标值)
   > ```
 
 - **substring()**
@@ -1244,7 +1244,7 @@ Math 的常用方法如下表所示：
   > 获取下标为 7-10 的字符
   >
   > ```js
-  > 字符串.substring(7, 10);
+  > 字符串.substring(7, 10)
   > ```
 
 - **replace()**
@@ -1252,7 +1252,7 @@ Math 的常用方法如下表所示：
   > 替换指定字符串的内容。
   >
   > ```js
-  > 字符串.replace(待替换的字符串, 新的字符串);
+  > 字符串.replace(待替换的字符串, 新的字符串)
   > ```
 
 - **split()**
@@ -1260,7 +1260,7 @@ Math 的常用方法如下表所示：
   > 可以使用指定的分隔符将一个字符串分割成子字符串数组。
   >
   > ```js
-  > 字符串.split(","); // 以逗号划分字符串
+  > 字符串.split(",") // 以逗号划分字符串
   > ```
 
 - **indexOf()**
@@ -1268,7 +1268,7 @@ Math 的常用方法如下表所示：
   > 寻找某个字符在字符串中首次出现的位置。
   >
   > ```js
-  > 字符串.indexOf(字符);
+  > 字符串.indexOf(字符)
   > ```
 
 - **includes()**
@@ -1289,8 +1289,8 @@ Math 的常用方法如下表所示：
   > 小数，会自动转换为整数
   >
   > ```js
-  > let str = "HELLO";
-  > console.log(str.repeat(4)); // HELLOHELLOHELLOHELLO
+  > let str = "HELLO"
+  > console.log(str.repeat(4)) // HELLOHELLOHELLOHELLO
   > ```
 
 ---
@@ -1353,3 +1353,17 @@ JS 是一门单线程语言，这是因为它运行在浏览器的渲染主线�
    了偏差
 
 :::
+
+---
+
+## -----javascript 骚操作-----
+
+## 交换数组中的两项值
+
+```js:line-numbers{2}
+let arr = [0,1,2,3,4,5,6,7,8,9,10];
+[arr[6],arr[8]] = [arr[8],arr[6]]
+console.log(arr)
+// [0, 1, 2, 3, 4, 5, 8, 7, 6, 9, 10]
+
+```
