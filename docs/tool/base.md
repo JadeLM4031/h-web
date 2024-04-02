@@ -123,3 +123,29 @@ format = function (date, fmt) {
 // 使用如下，data传入日期对象
 format(new Date(), "yyyy-MM-dd hh:mm:ss")
 ```
+
+---
+
+## 取消 axios 请求
+
+```js:line-numbers {2,6,18}
+//  创建一个CancelToken对象
+const source = axios.CancelToken.source();
+
+// 将CancelToken对象传递给请求的config中
+axios.get('/api/data', {
+  cancelToken: source.token
+}).then(response => {
+  console.log(response.data);
+}).catch(error => {
+  if (axios.isCancel(error)) {
+    console.log('请求已被取消：', error.message);
+  } else {
+    console.log('请求出错：', error.message);
+  }
+})
+
+// 在需要中断请求的地方，调用cancel方法
+source.cancel('请求被用户取消');
+
+```
