@@ -627,6 +627,58 @@ for (var i = 0; i < 10; i++) {
 
 ---
 
+## ES2018 (ES9)
+
+Rest/Spread 属性: 对对象解构和赋值提供了更灵活的语法
+
+```js
+const obj = { a: 1, b: 2, x: 3, y: 4 }
+const { x, y, ...others } = obj
+
+console.log(x) // 输出: 3
+console.log(y) // 输出: 4
+console.log(others) // 输出: { a: 1, b: 2 }
+```
+
+---
+
+## ES2019 (ES10)
+
+Object.fromEntries: 从键值对数组中创建一个对象。
+
+```js
+Object.fromEntries([
+  ["1", "a"],
+  ["2", "b"],
+]) // { '1': 'a', '2': 'b' }
+```
+
+---
+
+## ES2020 (ES11)
+
+- **空值合并运算符 (??)**
+
+```js
+const name = getUserName() || "Default Name" // 左边为false，取右边值
+const name = getUserName() ?? "Default Name" // 左边为 null 或 undefined，取右边值
+```
+
+- **可选链操作符 (?.)**
+
+```js
+const value = obj?.prop?.method() // 如果obj.prop.method存在，则返回obj.prop.method()的结果，否则返回undefined
+```
+
+- **非空断言操作符 (!.)**
+
+```js
+const foo = { bar: { baz: 42 } };
+const baz = foo!.bar!.baz; // 42  如果foo, bar, baz存在，则返回baz，否则抛出错误
+```
+
+---
+
 ## 宏任务 & 微任务 （老）
 
 ### 宏任务

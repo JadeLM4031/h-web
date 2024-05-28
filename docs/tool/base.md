@@ -149,3 +149,42 @@ axios.get('/api/data', {
 source.cancel('请求被用户取消');
 
 ```
+
+## 扩展低代码开发环境 babel 使开发环境支持 ES20+ 语法（工作）
+
+- 下载新 babel
+
+  ```
+  npm install --save @babel/preset-env core-js
+  npm install --save-dev @babel/plugin-proposal-optional-chaining @babel/plugin-proposal-nullish-coalescing-operator
+  ```
+
+- 下载支持 JSX 语法
+
+  ```
+  npm install --save-dev @vue/babel-preset-jsx @babel/plugin-transform-react-jsx
+  ```
+
+- 修改 babel.config.js 文件
+
+```js
+module.exports = {
+  presets: [
+    [
+      "@babel/preset-env",
+      {
+        useBuiltIns: "entry",
+        corejs: 3,
+        targets: "> 0.25%, not dead",
+      },
+    ],
+    "@vue/babel-preset-jsx",
+  ],
+  env: {
+    development: {
+      plugins: ["dynamic-import-node"],
+    },
+  },
+  plugins: ["@babel/plugin-proposal-optional-chaining", "@babel/plugin-proposal-nullish-coalescing-operator"],
+}
+```
