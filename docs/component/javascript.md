@@ -920,6 +920,45 @@ Set 中没有索引，也不能存放重复的值，数组与之相反。
 2. 类似数组，只有键值，没有键名
 3. 可以遍历，方法有 add、delete、has
 
+::: tip 新方法 （目前这些方法只能在 Node 22+、Chrome/Edge 122+、Firefox 127+、Safari 17+中使用）
+
+`intersection()` 计算两个 Set 的 交集
+
+`union()` 计算两个 Set 的 并集
+
+`difference()` 计算两个 Set 的 差集
+
+`symmetricDifference()` 取两个 Set 的 差集 的 并集
+
+`isSubsetOf()` 判断 Set 是否是另一个 Set 的 超集
+
+`isDisjointFrom()` 判断 Set 是否与另一个 Set 无交集
+
+:::
+
+```js
+const set1 = new Set([1, 2, 3, 4, 5, "apple", "peach"])
+const set2 = new Set([3,  5, "apple", 10])
+
+// 取交集
+console.log(set1.intersection(set2)) // Set { 3, 5, 'apple' }
+
+// 取并集
+console.log(set1.union(set2)) // Set { 1, 2, 3, 4, 5, 'apple', 'peach', 10 }
+
+// 取差集
+console.log(set1.difference(set2)) // Set { 1, 2, 4, 'peach' }
+
+// 取差集的并集
+console.log(set1.symmetricDifference(set2)) // Set { 1, 2, 4, 'peach', 10 }
+
+// 判断 set1 是否是 set2 的超集
+console.log(set1.isSubsetOf(set2)) // false
+
+// 判断 set1 是否与 set2 无交集
+console.log(set1.isDisjointFrom(set2)) // false
+```
+
 **WeakSet**
 
     如果将其存储的对象设为了 null，相当于是删除了该对象，当垃圾回收机运行时，会释放
