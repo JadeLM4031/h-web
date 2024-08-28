@@ -188,3 +188,92 @@ module.exports = {
   plugins: ["@babel/plugin-proposal-optional-chaining", "@babel/plugin-proposal-nullish-coalescing-operator"],
 }
 ```
+
+## 地图瓦片批量下载合并成一张图 核心代码
+
+```js:line-numbers
+
+import { createCanvas, loadImage } from "canvas"
+
+
+
+async downloadAndMergeTiles() {
+  const zoomLevel = 13
+  const tileUrls = []
+  const startX = 6790 // 设置实际的起始瓦片x
+  const endX = 6825 // 设置实际的结束瓦片x
+  const startY = 3220 // 设置实际的起始瓦片y
+  const endY = 3245 // 设置实际的结束瓦片y
+
+  // 生成瓦片的 URL 列表
+  for (let x = startX; x <= endX; x++) {
+    for (let y = startY; y <= endY; y++) {
+      const url = `https://t7.tianditu.gov.cn/DataServer?T=cia_w&x=${x}&y=${y}&l=${zoomLevel}&tk=xxxxx` // 你的实际瓦片 URL
+      tileUrls.push({ x, y, url })
+    }
+  }
+
+  // 下载瓦片并拼接
+  const tileSize = 256 // 天地图的瓦片大小为256x256
+  const canvasWidth = (endX - startX + 1) * tileSize
+  const canvasHeight = (endY - startY + 1) * tileSize
+  const canvas = createCanvas(canvasWidth, canvasHeight)
+  const ctx = canvas.getContext("2d")
+
+  for (const tile of tileUrls) {
+    try {
+      const response = await axios.get(tile.url, { responseType: "arraybuffer" })
+      // 将 ArrayBuffer 转换为 Blob 对象
+      const blob = new Blob([response.data], { type: "image/png" }) // 确保类型与实际数据匹配
+
+      // 使用 URL.createObjectURL 将 Blob 转换为可以被 <img> 加载的 URL
+      const imageUrl = URL.createObjectURL(blob)
+
+      // 加载图片
+      const img = await loadImage(imageUrl)
+
+      // 释放 URL 对象
+      URL.revokeObjectURL(imageUrl)
+      const posX = (tile.x - startX) * tileSize
+      const posY = (tile.y - startY) * tileSize
+      ctx.drawImage(img, posX, posY, tileSize, tileSize)
+    } catch (error) {
+      console.error(`Failed to download tile at ${tile.url}`, error)
+    }
+  }
+
+  function saveCanvasAsImage(canvas, filename = "rizhao_map.png") {
+    // 检查 canvas 对象是否存在
+    if (!canvas) {
+      console.error("Canvas element is not provided.")
+      return
+    }
+
+    // 使用 toBlob 方法将 canvas 转换为 Blob
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        console.error("Failed to convert canvas to Blob.")
+        return
+      }
+
+      // 创建一个临时 URL
+      const url = URL.createObjectURL(blob)
+
+      // 创建一个下载链接
+      const link = document.createElement("a")
+      link.href = url
+      link.download = filename
+
+      // 模拟点击链接，触发下载
+      link.click()
+
+      // 释放 URL 资源
+      URL.revokeObjectURL(url)
+      console.log(`Map image saved as ${filename}`)
+    }, "image/png") // 设置图片格式
+  }
+
+  saveCanvasAsImage(canvas)
+}
+
+```
