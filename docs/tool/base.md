@@ -277,3 +277,46 @@ async downloadAndMergeTiles() {
 }
 
 ```
+
+---
+
+## mapboxgl 设置本地离线字体
+
+::: tip 注意事项
+
+字体文件夹文件夹名： `Open Sans Regular,Arial Unicode MS Regular`
+
+图层字体中代码的配置：`'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular']`
+
+初始化时 glyphs 字段： `'xxx/{fontstack}/{range}.pbf'`
+
+:::
+
+![glyphs写法](/tool/mapboxgl_glyphs.png)
+
+::: details 批量下载 代码
+
+```js:line-numbers
+// 注： 此代码仅能简单实现批量下载的功能，可继续优化下载速率
+let end = 0
+let start = 0
+function downloadFile(url) {
+    const a = document.createElement("a")
+    a.setAttribute("download", "")
+    a.setAttribute("href", url)
+    a.click()
+  }
+for (let index = 0; index < 65536 / 256; index++) {
+  setTimeout(() => {
+    start = index * 256
+    end = start + 255
+    downloadFile(
+      `https://iserver.supermap.io/iserver/services/map-beijing/rest/maps/beijingMap/tileFeature/sdffonts/Open%20Sans%20Regular,Arial%20Unicode%20MS%20Regular/${start}-${end}.pbf?access_token=pk.eyJ1IjoiaHVtYXBib3gxIiwiYSI6ImNrcDg1eWRuaTA0MHUydm5ya3V2anV3YnoifQ.zOVmy8D0-vZSQ2BzWJdAKg`
+    )
+  }, 1000 * index) // 时间需要控制下，避免浏览器反应不过来造成文件缺失
+}
+```
+
+:::
+
+---
