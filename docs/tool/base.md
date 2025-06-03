@@ -320,3 +320,61 @@ for (let index = 0; index < 65536 / 256; index++) {
 :::
 
 ---
+
+## 获取一年每周起止日期
+
+- 获取一年有多少周、每周的起止日期以及现在是第几周
+
+```js:line-numbers
+getWeekList() {
+  const now = new Date()
+  const year = now.getFullYear()
+
+  const firstDateOfYear = new Date(year, 0, 1)
+  const lastDateOfYear = new Date(year, 11, 31)
+
+  // 找到1月1日所在周的周一作为第一周的开始（即使是上一年）
+  const firstMonday = new Date(firstDateOfYear)
+  const day = firstMonday.getDay()
+  firstMonday.setDate(firstMonday.getDate() - (day === 0 ? 6 : day - 1)) // 周日要变成上一周的周一
+
+  const weekDates = []
+  let weekStart = new Date(firstMonday)
+  let weekNum = 1
+  let currentWeek = 0
+
+  while (weekStart <= lastDateOfYear) {
+    const weekEnd = new Date(weekStart)
+    weekEnd.setDate(weekStart.getDate() + 6)
+
+    // 如果这周有至少一天在今年，就纳入统计
+    if (weekStart.getFullYear() === year || weekEnd.getFullYear() === year) {
+      const startDateStr = weekStart.toISOString().split("T")[0]
+      const endDateStr = weekEnd.toISOString().split("T")[0]
+
+      // 判断当前日期是否在这周中
+      if (now >= weekStart && now <= weekEnd) {
+        currentWeek = weekNum
+      }
+
+      weekDates.push({
+        weekNum,
+        weekName: `第${weekNum}周`,
+        startDate: this.formatDate(weekStart),
+        endDate: this.formatDate(weekEnd),
+      })
+
+      weekNum++
+    }
+
+    weekStart.setDate(weekStart.getDate() + 7)
+  }
+
+
+  console.log("全年周数据：", weekDates)
+  console.log("当前是第几周：", currentWeek)
+  console.log("当前周起止日期：", weekDates[currentWeek - 1].startDate, weekDates[currentWeek - 1].endDate)
+}
+```
+
+---
