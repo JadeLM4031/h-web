@@ -191,6 +191,8 @@ module.exports = {
 
 ## 地图瓦片批量下载合并成一张图 核心代码
 
+:::details 查看案例
+
 ```js:line-numbers
 
 import { createCanvas, loadImage } from "canvas"
@@ -278,6 +280,8 @@ async downloadAndMergeTiles() {
 
 ```
 
+:::
+
 ---
 
 ## mapboxgl 设置本地离线字体
@@ -324,6 +328,8 @@ for (let index = 0; index < 65536 / 256; index++) {
 ## 获取一年每周起止日期
 
 - 获取一年有多少周、每周的起止日期以及现在是第几周
+
+:::details 查看案例
 
 ```js:line-numbers
 getWeekList() {
@@ -377,4 +383,145 @@ getWeekList() {
 }
 ```
 
+:::
+
 ---
+
+## 批量根据经纬度获取地址
+
+- 使用天地图 api 获取地址，免费 key 有次数限制
+
+:::details 查看案例
+
+```js:line-numbers
+
+<el-button type="primary" :loading="exportBtnLoading" @click="handleExportClickTemp">临时导出</el-button>
+
+
+const ExcelJS = require("exceljs")
+
+
+async handleExportClickTemp() {
+  this.exportBtnLoading = true
+
+  try {
+    // **1. 获取 7000 条数据**
+    let res = await request({
+      url: `/api/example/BaseTower/simpleTowerList`,
+      method: "post",
+      data: {},
+    })
+
+    let arr = res.data.slice(11500, 16500)
+    const MAX_BATCH_SIZE = 10 // **每批请求 10 个**
+    let results = []
+
+    // **2. 按批量执行**
+    for (let i = 0; i < arr.length; i += MAX_BATCH_SIZE) {
+      let batch = arr.slice(i, i + MAX_BATCH_SIZE)
+      let batchRequests = batch.map((item) => this.fetchLocation(item))
+      let batchResults = await Promise.allSettled(batchRequests)
+      results.push(...batchResults)
+
+      // **3. 防止 API 限制，每批请求后暂停 500ms**
+      await new Promise((resolve) => setTimeout(resolve, 500))
+    }
+
+    // **4. 处理返回数据**
+    results.forEach((result, index) => {
+      if (result.status === "fulfilled") {
+        arr[index].location = result.value
+      } else {
+        arr[index].location = ""
+      }
+    })
+
+    this.exportBtnLoading = false
+    console.log("所有请求已完成", arr)
+    this.exportToExcelNew(arr)
+  } catch (error) {
+    this.exportBtnLoading = false
+    console.error("请求失败：", error)
+  }
+}
+
+// **封装单个请求**
+async fetchLocation(item) {
+  if (!item.lng || !item.lat) {
+    item.lng = 0
+    item.lat = 0
+  }
+
+  try {
+    let response = await axios({
+      method: "get",
+      url: "http://api.tianditu.gov.cn/geocoder",
+      params: {
+        postStr: JSON.stringify({ lon: item.lng, lat: item.lat, ver: 1 }),
+        type: "geocode",
+        tk: "此处填写天地图key",
+      },
+    })
+
+    return response.data.result.formatted_address || ""
+  } catch (error) {
+    console.warn(`地址请求失败:`, error)
+    return "获取失败"
+  }
+}
+
+exportToExcelNew(list) {
+  let workbook = new ExcelJS.Workbook() // 创建一个新的工作簿
+  let worksheet = workbook.addWorksheet("Sheet1") // 添加一个新的工作表
+
+  // 设置标题样式
+  // const titleRow = worksheet.addRow(["所属任务：" + this.taskList.find((item) => item.id == this.query.taskId).name])
+  // titleRow.font = { size: 12, bold: false }
+  // worksheet.mergeCells(1, 1, 1, this.activeName == "bumen" ? 5 : 6) // 根据条件合并单元格
+  // titleRow.alignment = { vertical: "middle", horizontal: "center" }
+
+  // 添加列头
+  let headers = ["序号", "电压等级", "线路名称", "杆塔号", "所属区、镇、村", "村书记姓名", "村书记联系方式"]
+  let columnWidth = [10, 20, 20, 20, 40, 20, 20]
+  worksheet.addRow(headers)
+
+  // 添加数据行
+  list.forEach((item, index) => {
+    let row = [index + 1, item.voltageLevel, item.lineName, "#" + item.towerNo, item.location, "", ""]
+    worksheet.addRow(row)
+  })
+
+  // 设置单元格样式
+  worksheet.columns.forEach((column, index) => {
+    column.eachCell((cell, cellIndex) => {
+      cell.alignment = { vertical: "middle", horizontal: "center" }
+      cell.border = {
+        top: { style: cellIndex == 1 ? "thick" : "thin" },
+        left: { style: "thin" },
+        bottom: { style: "thin" },
+        right: { style: "thin" },
+      }
+    })
+    column.width = columnWidth[index]
+  })
+
+  console.log("表格样式", worksheet)
+
+  // return
+
+  // 保存 Excel 文件
+  workbook.xlsx.writeBuffer().then((buffer) => {
+    const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" })
+    const url = URL.createObjectURL(blob)
+    // 创建一个链接用于下载
+    const downloadLink = document.createElement("a")
+    downloadLink.href = url
+    downloadLink.download = "线路台账.xlsx" // 文件名
+    document.body.appendChild(downloadLink)
+    downloadLink.click()
+    document.body.removeChild(downloadLink)
+  })
+}
+```
+
+:::
