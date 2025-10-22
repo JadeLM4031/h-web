@@ -156,7 +156,7 @@ source.cancel('请求被用户取消');
 
   ```
   npm install --save @babel/preset-env core-js
-  npm install --save-dev @babel/plugin-proposal-optional-chaining @babel/plugin-proposal-nullish-coalescing-operator
+  npm install --save-dev @babel/plugin-proposal-optional-chaining @babel/plugin-proposal-nullish-coalescing-operator @babel/plugin-proposal-logical-assignment-operators
   ```
 
 - 下载支持 JSX 语法
@@ -180,12 +180,16 @@ module.exports = {
     ],
     "@vue/babel-preset-jsx",
   ],
+  plugins: [
+    "@babel/plugin-proposal-optional-chaining", // 支持 ?.
+    "@babel/plugin-proposal-nullish-coalescing-operator", // 支持 ??
+    "@babel/plugin-proposal-logical-assignment-operators", // 支持 ||= &&= ??=
+  ],
   env: {
     development: {
       plugins: ["dynamic-import-node"],
     },
   },
-  plugins: ["@babel/plugin-proposal-optional-chaining", "@babel/plugin-proposal-nullish-coalescing-operator"],
 }
 ```
 
